@@ -15,4 +15,4 @@ let lastName = prompt("Type your last name", "Bozhko");
 
 let age = CURRENT_YEAR - yearOfBirth;
 
-console.log("User bio:", firstName, lastName,",", age, "years old");
+console.log("User bio:", firstName, lastName + ",",  age, "years old");
