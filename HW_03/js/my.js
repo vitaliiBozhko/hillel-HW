@@ -8,40 +8,38 @@ const CURRENT_YEAR = 2022;
 const age = CURRENT_YEAR - birthYear;
 
 let addText;
-let isLeapYear;
-if (Number(isLeapYear = (birthYear % 400 === 0))) {
+let isLeapYear = (birthYear % 400 === 0) || (birthYear % 4 === 0) || (birthYear % 100 === 0);
+if (isLeapYear === true) {
     addText = age + " years old (leap year),"
-} else if (Number(isLeapYear = (birthYear % 4 === 0))) {
-    addText = age + " years old (leap year),"
-} else if (Number(isLeapYear = (birthYear % 100 !== 0))) {
+} else if (isLeapYear === false) {
     addText = age + " years old,"
 }
 
+let zodiac;
 if ((birthDay >= 22 && birthMonth === 12) || (birthDay <= 19 && birthMonth === 1)) {
-    console.log("User Bio:", firstName, lastName + ",", addText, "Capricorn ♑");
+    zodiac = "Capricorn ♑"
 } else if ((birthDay >= 20 && birthMonth === 1) || (birthDay <= 18 && birthMonth === 2)) {
-    console.log("User Bio:", firstName, lastName + ",", addText, "Aquarius ♒");
+    zodiac = "Aquarius ♒"
 } else if ((birthDay >= 19 && birthMonth === 2) || (birthDay <= 20 && birthMonth === 3)) {
-    console.log("User Bio:", firstName, lastName + ",", addText, "Pisces ♓");
+    zodiac = "Pisces ♓"
 } else if ((birthDay >= 21 && birthMonth === 3) || (birthDay <= 19 && birthMonth === 4)) {
-    console.log("User Bio:", firstName, lastName + ",", addText, "Aries ♈");
+    zodiac = "Aries ♈"
 } else if ((birthDay >= 20 && birthMonth === 4) || (birthDay <= 20 && birthMonth === 5)) {
-    console.log("User Bio:", firstName, lastName + ",", addText, "Taurus ♉");
+    zodiac = "Taurus ♉"
 } else if ((birthDay >= 21 && birthMonth === 5) || (birthDay <= 20 && birthMonth === 6)) {
-    console.log("User Bio:", firstName, lastName + ",", addText, "Gemini ♊");
+    zodiac = "Gemini ♊"
 } else if ((birthDay >= 21 && birthMonth === 6) || (birthDay <= 22 && birthMonth === 7)) {
-    console.log("User Bio:", firstName, lastName + ",", addText, "Cancer ♋");
+    zodiac = "Cancer ♋"
 } else if ((birthDay >= 23 &&  birthMonth === 7) || (birthDay <= 22 && birthMonth === 8)) {
-    console.log("User Bio:", firstName, lastName + ",", addText, "Leo ♌");
+    zodiac = "Leo ♌"
 } else if ((birthDay >= 23 && birthMonth === 8) || (birthDay <= 22 && birthMonth === 9)) {
-    console.log("User Bio:", firstName, lastName + ",", addText, "Virgo ♉");
+    zodiac = "Virgo ♉"
 } else if ((birthDay >= 23 && birthMonth === 9) || (birthDay <= 22 && birthMonth === 10)) {
-    console.log("User Bio:", firstName, lastName + ",", addText, "Libra ♉");
+    zodiac = "Libra ♉"
 } else if ((birthDay >= 23 && birthMonth === 10) || (birthDay >= 21 && birthMonth === 11)) {
-    console.log("User Bio:", firstName, lastName + ",", addText, "Scorpio ♊");
+    zodiac = "Scorpio ♊"
 } else if ((birthDay >= 22 && birthMonth === 11) || (birthDay <= 21 && birthMonth === 12)) {
-    console.log("User Bio:", firstName, lastName + ",", addText, "Sagittarius ♊");
+    zodiac = "Sagittarius ♊"
 }
 
-
-
+console.log("User Bio:", firstName, lastName + ",", addText, zodiac);
