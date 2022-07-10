@@ -13,53 +13,53 @@ if (isLeapYear === 0) {
     age = (CURRENT_YEAR - birthYear) + " years old,"
 }
 
-if (birthDay >= 22 && birthMonth === 12) {
+if (birthDay >= 22 && birthDay <= 31 && birthMonth === 12) {
     console.log("User Bio:", firstName, lastName + ",", age, "Capricorn ♑");
-} else if (birthDay <= 19 && birthMonth === 1) {
+} else if (birthDay <= 19 && birthDay <= 31 && birthMonth === 1) {
     console.log("User Bio:", firstName, lastName + ",", age, "Capricorn ♑");
-} else if (birthDay >= 20 && birthMonth === 1) {
+} else if (birthDay >= 20 && birthDay <= 31 && birthMonth === 1) {
     console.log("User Bio:", firstName, lastName + ",", age, "Aquarius ♒");
-} else if (birthDay <= 18 && birthMonth === 2) {
+} else if (birthDay <= 18 && birthDay <= 31 && birthMonth === 2) {
     console.log("User Bio:", firstName, lastName + ",", age, "Aquarius ♒");
-} else if (birthDay >= 19 && birthMonth === 2) {
+} else if (birthDay >= 19 && birthDay <= 31 && birthMonth === 2) {
     console.log("User Bio:", firstName, lastName + ",", age, "Pisces ♓");
-} else if (birthDay <= 20 && birthMonth === 3) {
+} else if (birthDay <= 20 && birthDay <= 31 && birthMonth === 3) {
     console.log("User Bio:", firstName, lastName + ",", age, "Pisces ♓");
-} else if (birthDay >= 21 && birthMonth === 3) {
+} else if (birthDay >= 21 && birthDay <= 31 && birthMonth === 3) {
     console.log("User Bio:", firstName, lastName + ",", age, "Aries ♈");
-} else if (birthDay <= 19 && birthMonth === 4) {
+} else if (birthDay <= 19 && birthDay <= 31 && birthMonth === 4) {
     console.log("User Bio:", firstName, lastName + ",", age, "Aries ♈");
-} else if (birthDay >= 20 && birthMonth === 4) {
+} else if (birthDay >= 20 && birthDay <= 31 && birthMonth === 4) {
     console.log("User Bio:", firstName, lastName + ",", age, "Taurus ♉");
-} else if (birthDay <= 20 && birthMonth === 5) {
+} else if (birthDay <= 20 && birthDay <= 31 && birthMonth === 5) {
     console.log("User Bio:", firstName, lastName + ",", age, "Taurus ♉");
-} else if (birthDay >= 21 && birthMonth === 5) {
+} else if (birthDay >= 21 && birthDay <= 31 && birthMonth === 5) {
     console.log("User Bio:", firstName, lastName + ",", age, "Gemini ♊");
-} else if (birthDay <= 20 && birthMonth === 6) {
+} else if (birthDay <= 20 && birthDay <= 31 && birthMonth === 6) {
     console.log("User Bio:", firstName, lastName + ",", age, "Gemini ♊");
-} else if (birthDay >= 21 && birthMonth === 6) {
+} else if (birthDay >= 21 && birthDay <= 31 && birthMonth === 6) {
     console.log("User Bio:", firstName, lastName + ",", age, "Cancer ♋");
-} else if (birthDay <= 22 && birthMonth === 7) {
+} else if (birthDay <= 22 && birthDay <= 31 && birthMonth === 7) {
     console.log("User Bio:", firstName, lastName + ",", age, "Cancer ♋");
-} else if (birthDay >= 23 && birthMonth === 7) {
+} else if (birthDay >= 23 && birthDay <= 31 && birthMonth === 7) {
     console.log("User Bio:", firstName, lastName + ",", age, "Leo ♌");
-} else if (birthDay <= 22 && birthMonth === 8) {
+} else if (birthDay <= 22 && birthDay <= 31 && birthMonth === 8) {
     console.log("User Bio:", firstName, lastName + ",", age, "Leo ♌");
-} else if (birthDay >= 23 && birthMonth === 8) {
+} else if (birthDay >= 23 && birthDay <= 31 && birthMonth === 8) {
     console.log("User Bio:", firstName, lastName + ",", age, "Virgo ♍");
-} else if (birthDay <= 22 && birthMonth === 9) {
+} else if (birthDay <= 22 && birthDay <= 31 && birthMonth === 9) {
     console.log("User Bio:", firstName, lastName + ",", age, "Virgo ♍");
-} else if (birthDay >= 23 && birthMonth === 9) {
+} else if (birthDay >= 23 && birthDay <= 31 && birthMonth === 9) {
     console.log("User Bio:", firstName, lastName + ",", age, "Libra ♎");
-} else if (birthDay <= 22 && birthMonth === 10) {
+} else if (birthDay <= 22 && birthDay <= 31 && birthMonth === 10) {
     console.log("User Bio:", firstName, lastName + ",", age, "Libra ♎");
-} else if (birthDay >= 23 && birthMonth === 10) {
+} else if (birthDay >= 23 && birthDay <= 31 && birthMonth === 10) {
     console.log("User Bio:", firstName, lastName + ",", age, "Scorpio ♏");
-} else if (birthDay <= 21 && birthMonth === 11) {
+} else if (birthDay <= 21 && birthDay <= 31 && birthMonth === 11) {
     console.log("User Bio:", firstName, lastName + ",", age, "Scorpio ♏");
-} else if (birthDay >= 22 && birthMonth === 11) {
+} else if (birthDay >= 22 && birthDay <= 31 && birthMonth === 11) {
     console.log("User Bio:", firstName, lastName + ",", age, "Sagittarius ♐");
-} else if (birthDay <= 21 && birthMonth === 12) {
+} else if (birthDay <= 21 && birthDay <= 31 && birthMonth === 12) {
     console.log("User Bio:", firstName, lastName + ",", age, "Sagittarius ♐");
 }
 
