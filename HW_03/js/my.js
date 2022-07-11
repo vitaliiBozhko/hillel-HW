@@ -8,11 +8,13 @@ const CURRENT_YEAR = 2022;
 const age = CURRENT_YEAR - birthYear;
 
 let addText;
-let isLeapYear = (birthYear % 400 === 0) || (birthYear % 4 === 0) || (birthYear % 100 === 0);
+let isLeapYear = (birthYear % 400 === 0);
 if (isLeapYear === true) {
-    addText = age + " years old (leap year),"
+    addText = age + " years old (leap year)"
+} else if ((isLeapYear = (birthYear % 4 === 0) && (isLeapYear = (birthYear % 100 !== 0))) === true) {
+    addText = age + " years old (leap year)"
 } else if (isLeapYear === false) {
-    addText = age + " years old,"
+    addText = age + " years old"
 }
 
 let zodiac;
