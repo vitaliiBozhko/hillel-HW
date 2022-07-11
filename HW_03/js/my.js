@@ -3,18 +3,14 @@ const lastName = prompt("Type your last name", "Bozhko");
 const birthDay = Number(prompt("Type your birthday", "10"));
 const birthMonth = Number(prompt("Type your birth month", "9"));
 const birthYear = Number(prompt("Type your birth year", "1997"));
-
 const CURRENT_YEAR = 2022;
 const age = CURRENT_YEAR - birthYear;
 
-let addText;
-let isLeapYear = (birthYear % 400 === 0);
-if (isLeapYear === true) {
-    addText = age + " years old (leap year)"
-} else if ((isLeapYear = (birthYear % 4 === 0) && (isLeapYear = (birthYear % 100 !== 0))) === true) {
-    addText = age + " years old (leap year)"
-} else if (isLeapYear === false) {
-    addText = age + " years old"
+let addAge = age + " years old,";
+let isLeapYear = false;
+if (birthYear % 400 === 0 || birthYear % 4 === 0 && birthYear % 100 !== 0) {
+    isLeapYear = true
+    addAge = age + " years old (leap year),"
 }
 
 let zodiac;
@@ -44,4 +40,4 @@ if ((birthDay >= 22 && birthMonth === 12) || (birthDay <= 19 && birthMonth === 1
     zodiac = "Sagittarius ♊"
 }
 
-console.log("User Bio:", firstName, lastName + ",", addText, zodiac);
+console.log("User Bio:", firstName, lastName + ",", addAge, zodiac);
