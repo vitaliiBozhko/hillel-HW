@@ -8,15 +8,18 @@ if (tellMe) {
     let hasNum = false;
     for(wordNumber = 1; wordNumber <= countOfWords; wordNumber++) {
         do {
-            if (wordNumber === 1) {
-            word = prompt(`Type word #1:`, `i`);
+            let defaultWord = `i`;
+            switch(wordNumber){
+                case 2:
+                    defaultWord = `love`;
+                    break;
+                case 3:
+                    defaultWord = `you`;
+                    break;
             }
-            if (wordNumber === 2) {
-                word = prompt(`Type word #2:`, `love`);
-            }
-            if (wordNumber === 3) {
-                word = prompt(`Type word #3:`, `you`);
-            }
+
+            word = prompt(`Type word #${wordNumber}:`, defaultWord);
+
             if (word) {
                 word = word.trim().toLowerCase();
                 hasNum = false;
