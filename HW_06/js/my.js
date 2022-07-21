@@ -22,8 +22,7 @@ if (potato) {
     let potatoMedium = `middle`;
     let potatoLarge = `big`;
     potatoSize = prompt(`Choose potato size: small/middle/big`, potatoSmall);
-    if (potatoSize === potatoSmall || potatoSize === null || !potatoSize) {
-            price += 10;}
+    if (potatoSize === potatoSmall || potatoSize === null || !potatoSize) price += 10;
     else if (potatoSize === potatoMedium) price += 15;
     else if (potatoSize === potatoLarge) price += 20;
 }
