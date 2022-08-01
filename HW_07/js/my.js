@@ -1,7 +1,6 @@
 let arr = [],
     arrLength,
     sum = 0;
-  //  randomValue = Math.round(Math.random()*10);
 
 do {
     arrLength = Number(prompt(`Type array length`, `3`));
