@@ -2,13 +2,14 @@ let hero = ['Ivan'];
 let native = ['York','Of'];
 let destination = ['Poltava','In'];
 let colors = [`red`, `orange`, `yellow`, `green`, `aqua`, `blue`, `purple` ];
-let rainbow = destination.concat(native, hero).reverse();
+let rainbow = destination
+    .concat(native, hero)
+    .reverse();
 console.log(rainbow);
 
-rainbow.pop();
-rainbow.push(`Vain`);
-rainbow.splice(0, 3);
-rainbow.unshift(`Richard`, `Of`, `York` ,`Gave`, `Battle`);
+rainbow.splice(0,1,`Richard`);
+rainbow.splice(3,0,'Gave','Battle');
+rainbow.splice(-1,1,'Vain');
 
 for (let i=0; i<rainbow.length; i++){
     document.write(`
