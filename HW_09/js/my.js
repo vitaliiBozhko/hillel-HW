@@ -12,10 +12,7 @@ let sports = [
     ['bicyclist','🚴‍']
 ],  winterSports = sports.slice(0, 5),
     summerSports = sports.slice(6),
-    fruits = winterSports.slice(2,3).concat(summerSports.slice(1,3));
-
-winterSports.splice(2, 1);
-summerSports.splice(1, 2);
+    fruits = winterSports.splice(2,1).concat(summerSports.splice(1,2));
 
 document.write(`<p>**** Winter sports ****</p>`);
 for (let i = 0; i<winterSports.length; i++) {
