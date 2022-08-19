@@ -11,14 +11,15 @@ const obj = {
     }
 };
 
-let convert = object => {
+const convert = list => {
     let newObj = {};
-    for(let key in object){
-        if(typeof object[key] === `object`) {
-            for(let newKey in object[key]) {
-                newObj[key] = object[key][newKey]
-            }
-        } else newObj[key] = object[key]
+
+    for (let key in list) {
+        if(typeof list[key] === 'object'){
+            Object.assign(newObj, convert(list[key]))
+        } else{
+            newObj[key] = list[key];
+        }
     }
     return newObj;
 }
