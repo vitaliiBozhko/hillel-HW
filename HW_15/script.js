@@ -96,6 +96,14 @@ const users = [
 	}
 ];
 
+const getMark = mark => {
+	for (let key in gradation) {
+		if (mark <= key) {
+			return `<span class="${gradation[key]}">${gradation[key]}</span>`
+		}
+	}
+}
+
 class User {
 	constructor(obj) {
 		Object.assign(this, obj)
@@ -119,13 +127,6 @@ class User {
 		</div>`
 	}
 	renderCourses() {
-		let getMark = mark => {
-			for (let key in gradation) {
-				if (mark <= key) {
-					return `<span class="${gradation[key]}">${gradation[key]}</span>`
-				}
-			}
-		}
 		let courseName = this.courses
 			.map(item => `<p class="user__courses--course ${this.role}">${item.title} ${getMark(item.mark)}</p>`)
 			.join(``)
@@ -146,13 +147,6 @@ class Lector extends User {
 		super(obj);
 	}
 	renderCourses() {
-		let getMark = mark => {
-			for (let key in gradation) {
-				if (mark <= key) {
-					return `<span class="${gradation[key]}">${gradation[key]}</span>`
-				}
-			}
-		}
 		let courseName = this.courses
 			.map(item => `
                 <div class="user__courses--course ${this.role}">
@@ -173,13 +167,6 @@ class Admin extends User {
 		super(obj);
 	}
 	renderCourses() {
-		let getMark = mark => {
-			for (let key in gradation) {
-				if (mark <= key) {
-					return `<span class="${gradation[key]}">${gradation[key]}</span>`
-				}
-			}
-		}
 		let courseName = this.courses
 			.map(item => `
                 <div class="user__courses--course ${this.role}">
