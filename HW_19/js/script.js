@@ -4,14 +4,27 @@ const body = document.querySelector(`body`);
 block.style.left = `0`;
 block.style.top = `0`;
 
+const STEP = 10;
+
 const moveLeft = (block) => {
- //   block.style.left = parseInt(block.style.left) - 10 + `px`;
-    if (+block.style.left === body.clientWidth) {
-        block.style.left = parseInt(block.style.left) + 10 + `px`;
-    } else block.style.left = parseInt(block.style.left) - 10 + `px`;
+    console.log(`Відступ блоку від ЛІВОГО краю body:`, block.offsetLeft);
+
+    if((block.offsetLeft) < 0){
+        block.style.left = parseInt(block.style.left) + STEP*2 + `px`;
+    } else{
+        block.style.left = parseInt(block.style.left) - STEP + `px`;
+    }
 };
+
 const moveRight = (block) => {
-    block.style.left = parseInt(block.style.left) + 10 + `px`;
+    console.log(`Відступ блоку від ЛІВОГО краю body:`, block.offsetLeft);
+    console.log(`block.offsetLeft + block.clientWidth = Відступ блоку від ПРАВОГО краю body`, block.offsetLeft + block.clientWidth);
+
+    if((block.offsetLeft + block.clientWidth) > body.clientWidth){
+        block.style.left = parseInt(block.style.left) - STEP*2 + `px`;
+    } else{
+        block.style.left = parseInt(block.style.left) + STEP + `px`;
+    }
 };
 const jumpUp = (block) => {
     block.style.top = parseInt(block.style.top) + 10 + `px`;
