@@ -8,20 +8,8 @@ const elementForm = document.querySelector(`#elementForm`);
 elementForm.addEventListener(`submit`, event => {
     event.preventDefault();
 
-    let select = elementType.value;
-    element.classList.add(select)
-    if (select === `rectangle`) {
+    element.className = elementType.value;
 
-    }
-    elementColor.addEventListener(`change`, event => {
-        if (select === `rectangle`) {
-            element.style.borderRightColor = `transparent`
-            element.style.borderLeftColor = `transparent`
-            element.style.borderTopColor = `transparent`
-            element.style.borderBottomColor = event.target.value
-        } else element.style.background = event.target.value
-    })
-    elementRender.addEventListener(`click`, () => {
-        element.classList.remove(select)
-    })
+    let styleOption = elementType.value === `rectangle` ? `borderBottomColor` : `background`;
+    element.style[styleOption] = elementColor.value;
 })
