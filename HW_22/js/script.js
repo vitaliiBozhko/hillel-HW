@@ -32,6 +32,7 @@ jokesCategories.addEventListener(`change`, () => {
             deleteBtn.innerHTML = `Remove joke`;
             deleteBtn.addEventListener(`click`, () => {
                 jokesList.remove();
+                selectedOption.removeAttribute(`disabled`);
             })
 
             jokesList.append(deleteBtn);
