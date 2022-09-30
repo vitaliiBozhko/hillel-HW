@@ -16,14 +16,11 @@ const controller = async (url, method=`GET`, obj) => {
     return response;
 };
 
-
 const heroesTable = document.querySelector(`#heroesTable`);
 const createHeroesForm = document.querySelector(`#createHeroesForm`);
 const heroesName = document.querySelector(`#heroesName`);
 const heroesSelect = document.querySelector(`#heroesSelect`);
 const heroesCheckbox = document.querySelector(`#heroesCheckbox`);
-const submitHero = document.querySelector(`#submitHero`);
-
 
 const renderSelect = async () => {
     try {
