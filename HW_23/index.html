@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        form * {
+            display: block;
+        }
+        label {
+            margin: 10px 0;
+        }
+        .form-btn {
+            margin-top: 10px;
+        }
+        table, tr, td {
+            border: 2px solid black;
+            border-collapse: collapse;
+            padding: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <table id="heroesTable">
+
+    </table>
+
+    <form id="createHeroesForm">
+        <fieldset style="border: 2px solid black; width: fit-content; margin-top: 30px">
+            <legend>Create new hero</legend>
+            <label for="heroesName">Name:</label>
+            <input type="text" id="heroesName">
+
+            <label for="heroesSelect"> Choose universe:</label>
+            <select id="heroesSelect"></select>
+
+            <label for="heroesCheckbox">Favourite:</label>
+            <input type="checkbox" id="heroesCheckbox">
+
+            <button id="submitHero" class="form-btn">Submit</button>
+        </fieldset>
+    </form>
+
+<script src="./js/script.js"></script>
+</body>
+</html>
