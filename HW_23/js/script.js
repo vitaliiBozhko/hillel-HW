@@ -61,10 +61,9 @@ const renderTable = obj => {
     const tdCheckbox = document.createElement(`td`);
     let checkbox = document.createElement(`input`);
     checkbox.setAttribute(`type`, `checkbox`)
-    checkbox.addEventListener(`change`, async () => {
-        let changedStatus = await controller(API+`/heroes`, `PUT`, obj);
-        console.log(`Status of ${obj.favourite} changed`);
-
+    checkbox.addEventListener(`click`, async () => {
+        let changedStatus = await controller(API+`/heroes`, `PUT`, {favourite: status});
+        console.log(`Status of ${obj.favourite} changed`)
     })
 
     const tdBtn = document.createElement(`td`)
