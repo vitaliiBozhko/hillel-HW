@@ -10,7 +10,7 @@ const controller = async (url, method=`GET`, obj) => {
 
     if (obj) option.body = JSON.stringify(obj);
 
-    let request = await fetch(url),
+    let request = await fetch(url, option),
         response = request.ok ? request.json() : Promise.catch(request.statusText);
 
     return response;
@@ -38,7 +38,7 @@ createHeroesForm.addEventListener(`submit`, async e => {
     let newHero = {
         name: heroesName.value,
         comics: heroesSelect.value,
-        favourite: heroesCheckbox.value
+        favourite: heroesCheckbox.checked
     }
 
     let heroesStorage = await controller(API+`/heroes`);
@@ -61,16 +61,21 @@ const renderTable = obj => {
     const tdCheckbox = document.createElement(`td`);
     let checkbox = document.createElement(`input`);
     checkbox.setAttribute(`type`, `checkbox`)
+    checkbox.checked = obj.favourite;
     checkbox.addEventListener(`click`, async () => {
-        let changedStatus = await controller(API+`/heroes`, `PUT`, {favourite: status});
-        console.log(`Status of ${obj.favourite} changed`)
+        let changedStatus = await controller(API+`/heroes/${obj.id}`, `PUT`, {favourite: checkbox.checked});
+        console.log(`Status of ${changedStatus.favourite} changed`);
     })
 
     const tdBtn = document.createElement(`td`)
     const deleteBtn = document.createElement(`button`);
     deleteBtn.className = `delete-btn`;
     deleteBtn.innerHTML = `Delete hero`;
-    deleteBtn.addEventListener(`click`, () => tr.remove());
+    deleteBtn.addEventListener(`click`, async () => {
+        let deletedHero = await controller(API+`/heroes/${obj.id}`, `DELETE`);
+        console.log(`Hero of ${deletedHero.name} deleted`);
+        tr.remove();
+    })
 
     tdCheckbox.append(checkbox);
     tdBtn.append(deleteBtn);
