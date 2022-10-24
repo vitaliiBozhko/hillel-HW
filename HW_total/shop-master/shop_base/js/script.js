@@ -20,6 +20,13 @@ const controller = async (url, method=`GET`, obj) => {
 const loginForm = document.querySelector(`#loginForm`);
 const registrationForm = document.querySelector(`#registrationForm`);
 
+const getLocalStorage = (key, value=[]) => {
+    let storage = localStorage.getItem(`userEmail`);
+    storage = storage ? JSON.parse(storage) : [];
+
+    return storage;
+}
+
 if(loginForm) {
     loginForm.addEventListener(`submit`, async e => {
         e.preventDefault();
@@ -30,18 +37,32 @@ if(loginForm) {
         let password =  loginForm.querySelector(`input[data-name="password"]`).value;
 
         let userEmailInStorage = usersStorage.find(user => user.email === email);
-        console.log(userEmailInStorage)
 
-        if (userEmailInStorage) {
-            let changeStatus = await controller(API + `/users/${userEmailInStorage.id}`, `PUT`, {status: true});
-            window.location.href = `index.html`
-            return changeStatus;
-        } else if (userEmailInStorage.email !== email) {
+        if(!userEmailInStorage){
             errorLogin.classList.add(`active`);
             errorLogin.innerHTML = `Invalid email`;
-        } else if (userEmailInStorage.password !== password) {
+            return;
+        }
+
+        if (userEmailInStorage.password !== password) {
             errorLogin.classList.add(`active`);
             errorLogin.innerHTML = `Invalid password`;
+            return;
+        }
+
+        await controller(API + `/users/${userEmailInStorage.id}`, `PUT`, {status: true});
+        window.location.href = `index.html`;
+
+        let storageEmail = getLocalStorage(`userEmail`);
+        storageEmail.push(userEmailInStorage.email);
+        localStorage.setItem(`userEmail`, JSON.stringify(storageEmail));
+
+        const headerUser = document.querySelector(`#headerUser`);
+        const headerLogout = document.querySelector(`#headerLogout`);
+
+        if (userEmailInStorage.status === true) {
+            headerUser.innerHTML = `<a href="account.html" class="header__user" id="headerUser">${userEmailInStorage.name}</a>`;
+            headerLogout.classList.add(`active`);
         }
     })
 }
@@ -50,45 +71,79 @@ if (registrationForm) {
     registrationForm.addEventListener(`submit`, async e => {
         e.preventDefault();
 
-        let name = document.querySelector(`#registrationName`);
+        let name = registrationForm.querySelector(`input[data-name="name"]`).value;
         let email =  registrationForm.querySelector(`input[data-name="email"]`).value;
         let password =  registrationForm.querySelector(`input[data-name="password"]`).value;
-        let verifyPass = document.querySelector(`#registrationPasswordVer`);
+        let verifyPass = registrationForm.querySelector(`input[data-name="passwordVerify"]`).value;
         const errorRegistration = registrationForm.querySelector(`#registrationErr`);
 
         let newUser = {
-            name: name.value,
-            email: email.value,
-            password: password.value,
+            name: name,
+            email: email,
+            password: password,
             status: false
         }
 
         let usersStorage = await controller(API+`/users`);
         let userEmailInStorage = usersStorage.find(user => user.email===email);
-        console.log(userEmailInStorage)
 
         if (userEmailInStorage) {
-            errorRegistration.className = `error active`;
-            errorRegistration.innerHTML = `User with email ${userEmailInStorage} already exist!`;
-        } else if (verifyPass !== password) {
-            errorRegistration.className = `error active`;
-            errorRegistration.innerHTML = `Password not matches!`;
-        } else if (userEmailInStorage === false) {
-            let addNewUser = await controller(API+`/users`, `POST`, {newUser, status: true});
-            console.log(addNewUser)
+            errorRegistration.classList.add(`active`);
+            errorRegistration.innerHTML = `User with email ${userEmailInStorage.email} already exist!`;
+            return;
         }
+        if (verifyPass !== password) {
+            errorRegistration.classList.add(`active`);
+            errorRegistration.innerHTML = `Password not matches!`;
+            return;
+        }
+        if (userEmailInStorage !== email) {
+            let addNewUser = await controller(API+`/users`, `POST`, Object.assign(newUser, {status: true}));
 
+            let storageEmail = getLocalStorage(`userEmail`);
+            storageEmail.push(userEmailInStorage.email);
+            localStorage.setItem(`userEmail`, JSON.stringify(storageEmail));
+
+            return addNewUser;
+        }
     })
 }
-
-
 // login
 
+// user in/out
+const renderUserOnline = async () => {
+    let usersStorage = await controller(API+`/users`);
+    let userStatus = usersStorage.find(status => status.status);
+    let storageEmail = getLocalStorage(`userEmail`);
+
+    const headerUser = document.querySelector(`#headerUser`);
+    const headerLogout = document.querySelector(`#headerLogout`);
+
+    if (storageEmail) {
+        headerUser.innerHTML = `<a href="account.html" class="header__user" id="headerUser">${userStatus.name}</a>`;
+        headerLogout.classList.add(`active`);
+    }
+
+    headerLogout.addEventListener(`click`, async () => {
+        headerLogout.classList.remove(`active`);
+        headerUser.innerHTML = `<a href="login.html" class="header__user" id="headerUser">Log in</a>`
+        await controller(API + `/users/${userStatus.id}`, `PUT`, {status: false});
+
+
+        storageEmail.pop();
+        localStorage.setItem(`userEmail`, JSON.stringify(storageEmail));
+
+        window.location.href = `index.html`;
+    })
+
+}
+renderUserOnline();
+// user in/out
 
 
 // render Items
 
-/*const categoriesContainer = document.querySelector(`#categoriesContainer`);
+const categoriesContainer = document.querySelector(`#categoriesContainer`);
 
 const renderItem = obj => {
     let section = document.createElement(`section`);
@@ -153,4 +208,4 @@ const renderCardsItems = async () => {
 }
 renderCardsItems();
 
-// render Items*/
+// render Items
