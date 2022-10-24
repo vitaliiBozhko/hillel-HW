@@ -19,56 +19,67 @@ const controller = async (url, method=`GET`, obj) => {
 // login
 const loginForm = document.querySelector(`#loginForm`);
 const registrationForm = document.querySelector(`#registrationForm`);
-const error = document.querySelector(`#error`);
 
-loginForm.addEventListener(`submit`, async e => {
-    e.preventDefault();
+if(loginForm) {
+    loginForm.addEventListener(`submit`, async e => {
+        e.preventDefault();
 
-    let usersStorage = await controller(API+`/users`);
-    let userEmailInStorage = usersStorage.find(user => user.email);
-    let userPassInStorage = usersStorage.find(user => user.password);
+        let usersStorage = await controller(API+`/users`);
+        const errorLogin = loginForm.querySelector(`#error`);
+        let email =  loginForm.querySelector(`input[data-name="email"]`).value;
+        let password =  loginForm.querySelector(`input[data-name="password"]`).value;
 
-    if (userEmailInStorage && userPassInStorage) {
-        let changeStatus = await controller(API + `/users/${userEmailInStorage}`, `PUT`, {status: true});
-        window.location.href = `http://localhost:63342/HW/HW_total/shop-master/shop_base/index.html`
-        return changeStatus;
-    } else if (!userEmailInStorage || !userPassInStorage) {
-        error.className = `error active`;
-    }
-})
+        let userEmailInStorage = usersStorage.find(user => user.email === email);
+        console.log(userEmailInStorage)
 
-registrationForm.addEventListener(`submit`, async e => {
-    e.preventDefault();
+        if (userEmailInStorage) {
+            let changeStatus = await controller(API + `/users/${userEmailInStorage.id}`, `PUT`, {status: true});
+            window.location.href = `index.html`
+            return changeStatus;
+        } else if (userEmailInStorage.email !== email) {
+            errorLogin.classList.add(`active`);
+            errorLogin.innerHTML = `Invalid email`;
+        } else if (userEmailInStorage.password !== password) {
+            errorLogin.classList.add(`active`);
+            errorLogin.innerHTML = `Invalid password`;
+        }
+    })
+}
 
-    let name = document.querySelector(`#registrationName`);
-    let email = document.querySelector(`#registrationEmail`);
-    let password = document.querySelector(`#registrationPassword`);
-    let verifyPass = document.querySelector(`#registrationPasswordVer`);
-    let registrationErr = document.querySelector(`#registrationErr`);
+if (registrationForm) {
+    registrationForm.addEventListener(`submit`, async e => {
+        e.preventDefault();
 
-    let newUser = {
-        name: name.value,
-        email: email.value,
-        password: password.value,
-        status: false
-    }
+        let name = document.querySelector(`#registrationName`);
+        let email =  registrationForm.querySelector(`input[data-name="email"]`).value;
+        let password =  registrationForm.querySelector(`input[data-name="password"]`).value;
+        let verifyPass = document.querySelector(`#registrationPasswordVer`);
+        const errorRegistration = registrationForm.querySelector(`#registrationErr`);
 
-    let usersStorage = await controller(API+`/users`);
-    let userEmailInStorage = usersStorage.find(user => user.email);
-    console.log(userEmailInStorage)
+        let newUser = {
+            name: name.value,
+            email: email.value,
+            password: password.value,
+            status: false
+        }
 
-    if (userEmailInStorage) {
-        registrationErr.className = `error active`;
-        registrationErr.innerHTML = `User with email ${userEmailInStorage} already exist!`;
-    } else if (verifyPass !== password) {
-        registrationErr.className = `error active`;
-        registrationErr.innerHTML = `Password not matches!`;
-    } else if (userEmailInStorage === false) {
-        let addNewUser = await controller(API+`/users`, `POST`, {newUser, status: true});
-        console.log(addNewUser)
-    }
+        let usersStorage = await controller(API+`/users`);
+        let userEmailInStorage = usersStorage.find(user => user.email===email);
+        console.log(userEmailInStorage)
 
-})
+        if (userEmailInStorage) {
+            errorRegistration.className = `error active`;
+            errorRegistration.innerHTML = `User with email ${userEmailInStorage} already exist!`;
+        } else if (verifyPass !== password) {
+            errorRegistration.className = `error active`;
+            errorRegistration.innerHTML = `Password not matches!`;
+        } else if (userEmailInStorage === false) {
+            let addNewUser = await controller(API+`/users`, `POST`, {newUser, status: true});
+            console.log(addNewUser)
+        }
+
+    })
+}
 
 
 // login
@@ -77,7 +88,7 @@ registrationForm.addEventListener(`submit`, async e => {
 
 // render Items
 
-const categoriesContainer = document.querySelector(`#categoriesContainer`);
+/*const categoriesContainer = document.querySelector(`#categoriesContainer`);
 
 const renderItem = obj => {
     let section = document.createElement(`section`);
@@ -142,4 +153,4 @@ const renderCardsItems = async () => {
 }
 renderCardsItems();
 
-// render Items
+// render Items*/
