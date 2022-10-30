@@ -137,7 +137,7 @@ const renderUserOnline = async () => {
     })
 
 }
-renderUserOnline();
+//renderUserOnline();
 // user in/out
 
 
@@ -146,13 +146,7 @@ renderUserOnline();
 const categoriesContainer = document.querySelector(`#categoriesContainer`);
 
 const renderItem = obj => {
-    let section = document.createElement(`section`);
-    section.className = obj.category;
-    section.dataset.name = obj.category;
-    section.innerHTML = `<h2>${obj.title}</h2>`
-
-    let itemCard = document.createElement(`div`);
-    itemCard.className = `category__container`;
+    let section = document.querySelector(`section[data-name="${obj.category}"] .category__container`);
 
     // create discount
     let discount = obj.sale;
@@ -183,29 +177,53 @@ const renderItem = obj => {
                 </div>`
     // create discount
 
-
-
-    itemCard.innerHTML = `<div data-id="${obj.id}" class="product">
-                <img
-                    src="./images/products/${obj.img}.png"
-                    class="product__img"
-                    alt="Aircraft Carrier"
-                    height="80"
-                />
-                    <p class="product__title">${obj.title}</p>
-                    ${discount ?  withDiscount : withoutDiscount}
-            </div>`
+    let itemCard = document.createElement(`div`);
+    itemCard.className = `product`;
+    itemCard.dataset.id = obj.id;
+    itemCard.innerHTML = `<img
+        src="./images/products/${obj.img}.png"
+        class="product__img"
+        alt="Aircraft Carrier"
+        height="80"
+    />
+    <p class="product__title">${obj.title}</p>
+    ${discount ?  withDiscount : withoutDiscount}`;
 
     section.append(itemCard);
-    categoriesContainer.append(section)
 }
 
-const renderCardsItems = async () => {
-    let cardItems = await controller(API+`/products`);
-    console.log(cardItems)
-
-    cardItems.forEach(item => renderItem(item));
+const renderCardsItems = async products => {
+    products.forEach(item => renderItem(item));
 }
-renderCardsItems();
 
 // render Items
+
+// render sections
+const renderSections = async products => {
+    const uniqueCategories = [];
+    products.forEach(product => {
+        if(!uniqueCategories.includes(product.category))
+            uniqueCategories.push(product.category)
+    });
+
+    uniqueCategories.forEach(category => {
+        const section = document.createElement(`section`);
+        section.className = `category`;
+        section.dataset.name = category;
+        section.innerHTML = `<h2>${category}</h2>
+        <div class="category__container"></div>`;
+
+        categoriesContainer.append(section);
+    })
+}
+// render sections
+
+
+if(categoriesContainer){
+    (async ()=>{
+        let products = await controller(API+`/products`);
+
+        renderSections(products);
+        renderCardsItems(products);
+    })();
+}
