@@ -19,24 +19,31 @@ class Table extends React.Component {
     constructor(props) {
         super(props);
 
-        const randomItemStyle = setInterval(()=> {
-            let randomIndex = getRandom(0, this.state.listIndex.length)
+        const activeItems = setInterval(() => {
+            let randomIndex = getRandom(0, this.state.listIndex.length);
             let randomItem = this.state.listIndex[randomIndex];
 
-            this.state.list[randomItem].active = true;
-            this.state.listIndex.splice(randomIndex, 1);
-
-            if(this.state.listIndex.length === Math.floor(this.state.list.length/2)) {
-                this.state.borderWidth = `10px`;
+            if (this.state.listIndex.length === Math.floor(this.state.list.length / 2)) {
+                this.setState({
+                    borderWidth: `10px`
+                })
             }
 
             if (!this.state.listIndex.length) {
-                clearInterval(randomItemStyle);
-                this.state.borderWidth = `20px`;
+                clearInterval(activeItems);
+                this.setState({
+                    borderWidth: `20px`
+                })
             }
 
-            this.setState({})
-        }, 2000);
+            this.setState({
+                list: this.state.list.map((item,index) => {
+                    if(index === randomItem) item.active = true;
+                    return item;
+                }),
+                listIndex: this.state.listIndex.filter((item,index) => index != randomIndex)
+            });
+        }, 2000)
     }
 
     state = {
