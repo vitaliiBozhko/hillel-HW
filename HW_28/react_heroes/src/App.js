@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import RenderHeroes from './components/getHeroes/getHeroes.jsx';
+import RenderHeroes from './components/getHeroes/renderHeroes.jsx';
 
 function App(props) {
     return (

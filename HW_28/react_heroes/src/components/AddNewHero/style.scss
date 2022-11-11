@@ -1,0 +1,19 @@
+.add-hero {
+  margin: 20px 0 0 0;
+
+  form * {
+    display: block;
+  }
+
+  fieldset {
+    width: fit-content;
+  }
+
+  label {
+    margin: 10px 0;
+  }
+
+  input, select {
+    margin: 5px 0 0 0 ;
+  }
+}
