@@ -1,56 +1,57 @@
-import React, {Fragment, useEffect, useState} from 'react';
-import {heroesServices} from "../../services/heroesServices";
-import './style.scss'
+import React, { Fragment, useEffect, useState } from "react";
+import {
+    getHeroes,
+    addHero,
+    changeHero,
+    getUniverses,
+} from "../../services/heroesServices";
+import "./style.scss";
 import AddNewHero from "../AddNewHero/addNewHero";
-import addNewHero from "../AddNewHero/addNewHero";
 
- export function RenderHeroes(props) {
-     const [td, setTD] = useState([]);
-     const [heroName, setName] = useState(``);
-     const [universe, setUniverse] = useState(``);
-     const [favourite, setFavourite] = useState(``);
+export function RenderHeroes() {
+    const [heroes, setHeroes] = useState([]);
+    const [universes, setUniverses] = useState([]);
 
-     useEffect(() => {
-         heroesServices()
-             .then(data => setTD(data))
-     }, []);
+    useEffect(() => {
+        getHeroes().then((data) => setHeroes(data));
+        getUniverses().then((data) => setUniverses(data));
+    }, []);
 
-    const favouriteHero = (item) => {
-        return item.favourite ? 'checked={item.favourite}' : '';
-    }
+    const favouriteHero = async (item) => {
+        await changeHero(item.id, { favourite: !item.favourite });
+    };
 
-    const submitForm = async (e) => {
+    const submitForm = async (e, hero) => {
         e.preventDefault();
 
-        let addedNewHero = await addNewHero({name: heroName, comics: universe, favourite: favourite})
-
-        setTD((prevTD) => [...prevTD, addedNewHero])
-    }
-
-    const setHeroName = (e) => setName(e.target.value);
-    const setHeroUniverse = (e) => setUniverse(e.target.value);
-    const setHeroFavourite = (e) => setFavourite(e.target.value);
+        let addedNewHero = await addHero(hero);
+        setHeroes((prevTD) => [...prevTD, addedNewHero]);
+    };
 
     return (
         <Fragment>
             <table>
                 <tbody>
-                    <tr>
-                        {td.map((item) => <td key={item.id}>{item.name}</td>)}
+                {heroes.map((item) => (
+                    <tr key={item.id}>
+                        <td>{item.name}</td>
+                        <td>{item.comics}</td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                defaultChecked={item.favourite}
+                                onChange={() => favouriteHero(item)}
+                            />
+                        </td>
+                        <td>
+                            <button>Delete</button>
+                        </td>
                     </tr>
-                    <tr>
-                        {td.map((item) => <td key={item.id}>{item.comics}</td>)}
-                    </tr>
-                    <tr>
-                        {td.map((item) => <td key={item.id}><input type={"checkbox"} onChange={favouriteHero(item)}/></td>)}
-                    </tr>
-                    <tr>
-                        {td.map((item) => <td key={item.id}><button>DELETE</button></td>)}
-                    </tr>
+                ))}
                 </tbody>
             </table>
 
-            <AddNewHero submitForm={submitForm} addName={setHeroName} chooseUniverse={setHeroUniverse} addFavourite={setHeroFavourite}/>
+            <AddNewHero universes={universes} submitForm={submitForm} />
         </Fragment>
     );
 }

@@ -1,30 +1,44 @@
-import React, {Fragment, useEffect, useState} from 'react';
-import './style.scss';
+import React, { useState } from "react";
+import "./style.scss";
 
-function AddNewHero({submitForm, addName, chooseUniverse, addFavourite}) {
-    const select = [
-        {
-        id: 1,
-        company: "DC"
-        },
-        {
-        id: 2,
-        company: "Marvel"
-        }
-    ]
+function AddNewHero({ universes, submitForm }) {
+    const [heroName, setName] = useState(``);
+    const [heroUniverse, setUniverse] = useState(``);
+    const [heroFavourite, setFavourite] = useState(``);
+
     return (
         <div className={"add-hero"}>
-            <form onSubmit={submitForm}>
+            <form
+                onSubmit={(e) =>
+                    submitForm(e, {
+                        name: heroName,
+                        comics: heroUniverse,
+                        favourite: heroFavourite,
+                    })
+                }
+            >
                 <fieldset>
                     <legend>Create new hero</legend>
                     <label>
-                        New hero name: <input type={"text"} onChange={addName}/>
+                        New hero name:{" "}
+                        <input type={"text"} onChange={(e) => setName(e.target.value)} />
                     </label>
                     <label>
-                        Choose universe: <select onChange={chooseUniverse}>{select.map((option) => <option value={option.company} key={option.id}>{option.company}</option>)}</select>
+                        Choose universe:{" "}
+                        <select onChange={(e) => setUniverse(e.target.value)}>
+                            {universes.map((option) => (
+                                <option value={option.name} key={option.id}>
+                                    {option.name}
+                                </option>
+                            ))}
+                        </select>
                     </label>
                     <label>
-                        Favourite: <input type={"checkbox"} onChange={addFavourite}/>
+                        Favourite:{" "}
+                        <input
+                            type={"checkbox"}
+                            onChange={(e) => setFavourite(e.target.checked)}
+                        />
                     </label>
                     <button>Submit</button>
                 </fieldset>
